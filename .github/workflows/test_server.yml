@@ -1,0 +1,33 @@
+name: test_server
+
+on:
+  push:
+    paths:
+      - '.github/workflows/server.yml'
+      - 'server/**'
+      - 'test_server/**'
+
+jobs:
+  test:
+    name: test_server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - run: make test_server
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: reports
+          path: test_server/reports/
+          retention-days: 90
+
+      # https://github.com/marketplace/actions/test-reporting
+      - uses: phoenix-actions/test-reporting@v8
+        id: test-report   # Set ID reference for step
+        if: always()
+        with:
+          name: server-junit
+          path: test_server/reports/*.xml
+          reporter: java-junit

@@ -1,0 +1,21 @@
+*.log
+*.tmp
+# Binaries
+*.zip
+*.pdf
+
+# Mac Cancer
+**/.DS_Store
+
+# Python Cancer
+*.py[cod]
+**/.pytest_cache
+**/__pycache__
+
+# npm/javascript Cancer
+**/node_modules
+package-lock.json
+yarn.lock
+
+# generated files for this repo
+openapi.html
